@@ -22,7 +22,7 @@ public class CrewName : MonoBehaviour
         {
             string currName = currCrewmate.name;
             string currPosition = currCrewmate.worldLocation.ToString();
-            crewText = crewText + currName + "" + currPosition + "";
+            crewText = crewText + currName + " " + currPosition + "\n";
 
         }
 

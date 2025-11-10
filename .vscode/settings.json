@@ -51,5 +51,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "testdeleteme.sln"
+    "dotnet.defaultSolution": "diver_interfaces_unity.sln"
 }
