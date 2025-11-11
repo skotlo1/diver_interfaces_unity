@@ -29,7 +29,8 @@ public class OxygenBar : MonoBehaviour
     }
 
     private void Update()
-    {
+  {
+        Debug.Log("Oxygen level:" + iM.GetOxygenLevel());
         SetOxygenLevel(iM.GetOxygenLevel());
     }
 }
