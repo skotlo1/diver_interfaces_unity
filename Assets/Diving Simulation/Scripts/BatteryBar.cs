@@ -15,6 +15,10 @@ public class BatteryBar : MonoBehaviour
     
     [Header("Bar Colors")]
     public Image fillImage;
+
+    public Text batteryPercentText;
+
+
     public Color normalColor = Color.green;
     public Color warningColor = Color.yellow;
     public Color criticalColor = Color.red;
@@ -38,7 +42,7 @@ public class BatteryBar : MonoBehaviour
     public void SetBatteryLevel(float level)
     {
         slider.value = level;
-        
+
         UpdateBatteryColor(level);
     }
 
@@ -63,23 +67,28 @@ public class BatteryBar : MonoBehaviour
     }
 
     private void Update()
+{
+    float currentLevel = iM.GetBatteryLevel();
+    SetBatteryLevel(currentLevel);
+    
+    float percentage = (currentLevel / iM.GetMaxBatteryLevel()) * 100f;
+    
+    // Update percentage text
+    if (batteryPercentText != null)
     {
-        float status = iM.GetBatteryLevel();
-
-        SetBatteryLevel(status);
-        
-        float percent = (status / iM.GetMaxBatteryLevel()) * 100f;
-        
-        if (warningPanel != null)
+        batteryPercentText.text = $"Battery: {percentage:F0}%";
+    }
+    
+    if (warningPanel != null)
+    {
+        if (percentage <= warningThreshold)
         {
-            if (percent <= warningThreshold)
-            {
-                warningPanel.SetActive(true);
-            }
-            else
-            {
-                warningPanel.SetActive(false);
-            }
+            warningPanel.SetActive(true);
+        }
+        else
+        {
+            warningPanel.SetActive(false);
         }
     }
+}
 }
