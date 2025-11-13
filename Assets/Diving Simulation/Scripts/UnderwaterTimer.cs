@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class UnderwaterTimer : MonoBehaviour
 {
-    public InformationManager info;=
+    public InformationManager info;
     public float SecondsUnderwater { get; private set; }
 
     void Update()
