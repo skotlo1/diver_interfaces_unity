@@ -69,6 +69,7 @@ public class BatteryBar : MonoBehaviour
     private void Update()
 {
     float currentLevel = iM.GetBatteryLevel();
+    Debug.Log("battery level" + currentLevel);
     SetBatteryLevel(currentLevel);
     
     float percentage = (currentLevel / iM.GetMaxBatteryLevel()) * 100f;
@@ -77,6 +78,7 @@ public class BatteryBar : MonoBehaviour
     if (batteryPercentText != null)
     {
         batteryPercentText.text = $"Battery: {percentage:F0}%";
+        Debug.Log("battery percent text" + batteryPercentText.text);
     }
     
     if (warningPanel != null)
