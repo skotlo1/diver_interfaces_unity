@@ -28,16 +28,29 @@ public class MoveTo : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    public void MoveToCrewmember()
+    public void MoveToCrewmember(string crewmateName)
     {
       CrewInfo[] crewInformation = ctm.GetCrewmatesInformation();
-      CrewInfo currCrewmate = crewInformation[0];
-      string currName = currCrewmate.name;
-      Vector3 crewmatePosition = currCrewmate.worldLocation;
-      Debug.Log("moving to" + crewmatePosition.ToString());
+      int foundIdx = -1;
+      
+      for (int i = 0; i < crewInformation.Length; i++) {
+        if (crewInformation[i].name == crewmateName) {
+          foundIdx = i;
+          break;
+        }
+      }
+
+      if (foundIdx == -1) {
+        Debug.Log("crewmate not in list");
+        return;
+      } 
+
+      CrewInfo selectedCrewmate = crewInformation[foundIdx];
+      Vector3 crewmatePosition = selectedCrewmate.worldLocation;
+      Debug.Log("moving to" + crewmatePosition.ToString());       
 
       if (xrOrigin == null){ 
-        Debug.Log("xrOrigin is null");
+        Debug.Log("No XROrigin found");
         return;
       }
 
@@ -48,6 +61,7 @@ public class MoveTo : MonoBehaviour
       } else {
         xrOrigin.transform.position = crewmatePosition;
       }
+      Debug.Log("xrOrigin is:" + xrOrigin.transform.position);
     }
 
 }
