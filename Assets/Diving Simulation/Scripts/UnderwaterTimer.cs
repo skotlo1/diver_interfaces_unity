@@ -3,20 +3,25 @@ using UnityEngine;
 public class UnderwaterTimer : MonoBehaviour
 {
     public InformationManager info;
-    public float SecondsUnderwater { get; private set; }
+    [SerializeField] bool underwaterWhenDepthIsPositive = false;
+
+    [SerializeField] float secondsUnderwater = 0f;
+    public float SecondsUnderwater => secondsUnderwater;
 
     void Update()
     {
-        if (info != null && info.GetDepth() < 0f)
-            SecondsUnderwater += Time.deltaTime;
+        if (info == null) info = FindObjectOfType<InformationManager>();
+        if (info == null) return;
+
+        float d = info.GetDepth();
+        bool isUnderwater = underwaterWhenDepthIsPositive ? (d > 0f) : (d < 0f);
+        if (isUnderwater) secondsUnderwater += Time.deltaTime;
     }
 
     public string FormatMMSS()
     {
-        int m = Mathf.FloorToInt(SecondsUnderwater / 60f);
-        int s = Mathf.FloorToInt(SecondsUnderwater % 60f);
-        return $"{m:00}:{s:00}";
+        int m = (int)(secondsUnderwater / 60f);
+        int s = (int)(secondsUnderwater % 60f);
+        return m.ToString("00") + ":" + s.ToString("00");
     }
-
-    public void ResetTimer() => SecondsUnderwater = 0f;
 }
