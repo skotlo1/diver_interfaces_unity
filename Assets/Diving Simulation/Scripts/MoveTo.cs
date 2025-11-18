@@ -15,6 +15,7 @@ public class MoveTo : MonoBehaviour
 
     public RectTransform arrowPositioning;
     public Text locationDisplay;
+    public Text regularInfoDisplay;
 
     [SerializeField] XROrigin xrOrigin;          // XR Origin to move
     [SerializeField] Transform aimPose;          // optional forward source (e.g., Left/Aim Pose)
@@ -51,7 +52,7 @@ public class MoveTo : MonoBehaviour
       isDirecting = !isDirecting;
 
       if (isDirecting) {
-        buttonText.text = $"Stop Directing To {crewmateName}";
+        buttonText.text = $"Stop Navigation";
         crewmatePosition = FindCrewmatePosition();
         arrowPositioning.gameObject.SetActive(true);
         locationDisplay.gameObject.SetActive(true);
@@ -125,8 +126,9 @@ public class MoveTo : MonoBehaviour
       string frontBack = localDirection.z > 0 ? 
         $"{localDirection.z:F1} units IN FRONT of you" : 
         $"{Mathf.Abs(localDirection.z):F1} units BEHIND you";
-
-      locationDisplay.text = $"{crewmateName} is:\n{leftRight}\n{upDown}\n{frontBack}";
+      
+      regularInfoDisplay.text = "";
+      locationDisplay.text = $"{leftRight}\n{upDown}\n{frontBack}";
     }
 
 } 
