@@ -39,7 +39,7 @@ public class MoveTo : MonoBehaviour
 
         cc = xrOrigin ? xrOrigin.GetComponent<CharacterController>() : null;
 
-        buttonText.text = $"Direct To {crewmateName}";
+        buttonText.text = $"Navigate";
         isDirecting = false;
         arrowPositioning.gameObject.SetActive(false);
         locationDisplay.gameObject.SetActive(false);
@@ -56,7 +56,7 @@ public class MoveTo : MonoBehaviour
         arrowPositioning.gameObject.SetActive(true);
         locationDisplay.gameObject.SetActive(true);
       } else {
-        buttonText.text = $"Direct To {crewmateName}";
+        buttonText.text = $"Navigate";
         arrowPositioning.gameObject.SetActive(false);
         locationDisplay.gameObject.SetActive(false);
       }
