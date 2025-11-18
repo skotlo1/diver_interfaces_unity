@@ -17,7 +17,7 @@ public class EmergencyGesturesMiddleFinger : MonoBehaviour
     public Transform rightThumbTip, rightMiddleTip;
 
     [Header("Tuning")]
-    public float pinchThreshold = 0.022f
+    public float pinchThreshold = 0.022f;
     public float cooldown = 1.5f;
 
     [Header("Debugging why wont this workkk")]
