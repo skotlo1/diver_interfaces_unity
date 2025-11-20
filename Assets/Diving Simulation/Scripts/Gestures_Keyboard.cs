@@ -5,14 +5,42 @@ public class HandGestureKeyboardTest : MonoBehaviour
 {
     //Access to dialing buttons
     [SerializeField] private GameObject callButtons;
+    
     //Access to crew member buttons
-    [SerializeField] private GameObject crewButtons;
+    [SerializeField] private GameObject crewPanel;
+    [SerializeField] private GameObject crewPanelButtons;
     
     void Start()
     {
         //Buttons originally do not appear
         if (callButtons) callButtons.SetActive(false);
-        if (crewButtons) crewButtons.SetActive(false);
+        if (crewPanel) crewPanel.SetActive(false);
+        checkCrewButtons(false);
+    }
+
+    void checkCrewButtons(bool turnOn) 
+    {
+        if (crewPanelButtons) {
+          if (turnOn) {
+            foreach (Transform child in crewPanelButtons.transform)
+            {
+              // Deactivate the child GameObject
+              foreach (Transform grandchild in child)
+              {
+                grandchild.gameObject.SetActive(true);
+              }
+            }
+          } else {
+            foreach (Transform child in crewPanelButtons.transform)
+            {
+              // Deactivate the child GameObject
+              foreach (Transform grandchild in child)
+              {
+                grandchild.gameObject.SetActive(false);
+              }
+            }
+          }
+        }
     }
     
     void Update()
@@ -42,18 +70,21 @@ public class HandGestureKeyboardTest : MonoBehaviour
     void ShowCallMenu()
     {
         if (callButtons) callButtons.SetActive(true);
-        if (crewButtons) crewButtons.SetActive(false);
+        if (crewPanel) crewPanel.SetActive(false);
+        checkCrewButtons(false);
     }
     
     void ShowCrewInfo()
     {
         if (callButtons) callButtons.SetActive(false);
-        if (crewButtons) crewButtons.SetActive(true);
+        if (crewPanel) crewPanel.SetActive(true);
+        checkCrewButtons(true);
     }
     
     void HideMenu()
     {
         if (callButtons) callButtons.SetActive(false);
-        if (crewButtons) crewButtons.SetActive(false);
+        if (crewPanel) crewPanel.SetActive(false);
+        checkCrewButtons(false);
     }
 }

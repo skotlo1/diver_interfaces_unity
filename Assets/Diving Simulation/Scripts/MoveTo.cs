@@ -15,7 +15,8 @@ public class MoveTo : MonoBehaviour
 
     public RectTransform arrowPositioning;
     public Text locationDisplay;
-    public Text regularInfoDisplay;
+    public GameObject regularInfoDisplay;
+    public Text regularInfoDisplayText;
 
     [SerializeField] XROrigin xrOrigin;          // XR Origin to move
     [SerializeField] Transform aimPose;          // optional forward source (e.g., Left/Aim Pose)
@@ -26,6 +27,7 @@ public class MoveTo : MonoBehaviour
     public float arrowDistance = 2f;
 
     public float arrowHeight = -0.2f;
+    string regularInfoDisplaySaved = "";
 
     
     CharacterController cc;
@@ -44,6 +46,8 @@ public class MoveTo : MonoBehaviour
         isDirecting = false;
         arrowPositioning.gameObject.SetActive(false);
         locationDisplay.gameObject.SetActive(false);
+        regularInfoDisplay.SetActive(true);
+        regularInfoDisplaySaved = regularInfoDisplayText.text;
     }
 
     // Start is called before the first frame update
@@ -60,6 +64,8 @@ public class MoveTo : MonoBehaviour
         buttonText.text = $"Navigate";
         arrowPositioning.gameObject.SetActive(false);
         locationDisplay.gameObject.SetActive(false);
+        regularInfoDisplay.SetActive(true);
+        regularInfoDisplayText.text = regularInfoDisplaySaved;
       }
 
     }
@@ -127,7 +133,7 @@ public class MoveTo : MonoBehaviour
         $"{localDirection.z:F1} units IN FRONT of you" : 
         $"{Mathf.Abs(localDirection.z):F1} units BEHIND you";
       
-      regularInfoDisplay.text = "";
+      regularInfoDisplay.SetActive(false);
       locationDisplay.text = $"{leftRight}\n{upDown}\n{frontBack}";
     }
 

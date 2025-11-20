@@ -20,10 +20,10 @@ public class SimpleDial : MonoBehaviour
         aS = GetComponent<AudioSource>();
     }
 
-    // Start is called before the first frame update
     public void QuickDial(int freq)
     {
-        if (!isBusy) // You need to hangup to make a call.
+        //Must hangup before making another call
+        if (!isBusy)
         {
             isBusy = true;
             aS.clip = ctm.CallCrewmate(freq);
@@ -71,4 +71,21 @@ public class SimpleDial : MonoBehaviour
             isIncomingCall = false;
         }
     }
+
+    public void DialCrewmateByName(string crewmateName)
+{
+    CrewInfo[] crewInfo = ctm.GetCrewmatesInformation();
+    
+    foreach (CrewInfo crew in crewInfo)
+    {
+        if (crew.name == crewmateName)
+        {
+            QuickDial(crew.frequency);
+            Debug.Log($"Dialing {crewmateName} at frequency {crew.frequency}");
+            return;
+        }
+    }
+    
+    Debug.LogWarning($"Could not find crew member: {crewmateName}");
+}
 }
